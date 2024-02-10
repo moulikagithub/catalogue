@@ -35,8 +35,6 @@ pipeline {
                 echo 'Deploying....'
                 sh """
                     echo "running shell script"
-                    echo "$greeting"
-                    # sleep 10
                 """
             }
         }
