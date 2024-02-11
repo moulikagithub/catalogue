@@ -71,7 +71,7 @@ pipeline {
                     //     string(name: 'environment', value: "dev")
                     // ]
 
-                        build job: "cat", wait: true
+                        build job: "cato", wait: true
 
                 }
             }
