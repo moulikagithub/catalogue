@@ -65,10 +65,13 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
-                sh """
-                    echo "running shell script"
-                """
+                script {
+                    def params = [
+                         string(name: 'version', value: "$packageVersion"),
+                         string(name: 'environment', value: "dev")
+                    ]
+                    build job: "catalogue-deploy", wait: true, parameters: params
+                }
             }
         }
         
