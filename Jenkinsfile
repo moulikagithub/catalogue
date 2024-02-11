@@ -65,13 +65,13 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                script {
-                    def params = [
-                         string(name: 'version', value: "$packageVersion"),
-                         string(name: 'environment', value: "dev")
-                    ]
-                    build job: "catalogue-deploy/terraform", wait: true, parameters: params
-                }
+                    script {
+                        def params = [
+                            string(name: 'version', value: "$packageVersion"),
+                            string(name: 'environment', value: "dev")
+                        ]
+                        build job: "catalogue-deploy", wait: true, parameters: params
+                    }
             }
         }
         
