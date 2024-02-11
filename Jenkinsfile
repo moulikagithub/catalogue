@@ -6,7 +6,7 @@ pipeline {
     }
     environment { 
             packageVersion = ''
-            nexusurl = '172.31.11.253'
+            nexusurl = '172.31.11.253:8081'
     }
    
     options {
@@ -54,9 +54,9 @@ pipeline {
                     credentialsId: 'nexus-auth',
                     artifacts: [
                          [artifactId: catalogue,
-                          classifier: '',
-                          file: 'catalogue.zip',
-                          type: 'zip']
+                         classifier: '',
+                         file: 'catalogue.zip',
+                         type: 'zip']
                     ]
                 )  
      
