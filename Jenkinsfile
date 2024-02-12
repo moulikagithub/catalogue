@@ -13,7 +13,10 @@ pipeline {
                 timeout(time: 1, unit: 'HOURS')
                 disableConcurrentBuilds() 
             }
-   
+    parameters {
+        
+        booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
+    }
     // build
     stages {
         stage('get version') {
@@ -31,7 +34,21 @@ pipeline {
                    npm install
                 """
             }
+        }
+         stage('unit test') {
+            steps {
+                sh """
+                   echo "unit test cases will run here"
+                """
+            }
         } 
+         stage('sonarscan') {
+            steps {
+                sh """
+                   sonar-scanner
+                """
+            }
+        }
     
         stage('build') {
             steps {
@@ -42,6 +59,7 @@ pipeline {
                 """
             }
         }
+        
         stage('publish Artifacts') {
             steps {
                 nexusArtifactUploader(
@@ -65,6 +83,11 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                when {
+                    expression {
+                        params.deploy == 'true'
+                    }
+                }
                 script {
                     def params = [
                         string(name: 'version', value: "${packageVersion}"),
