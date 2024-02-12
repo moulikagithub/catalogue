@@ -83,10 +83,10 @@ pipeline {
         }
         stage('Deploy') {
             when {
-                    expression{
-                        params.deploy = true
-                    }
+                expression{
+                    params.deploy == 'true'
                 }
+            }
             steps {
                 script {
                     def params = [
